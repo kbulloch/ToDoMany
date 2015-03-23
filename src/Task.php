@@ -99,10 +99,12 @@
                 $result = $GLOBALS['DB']->query("SELECT * FROM categories WHERE id = {$my_category_id};");
                 $returned_category = $result->fetchAll(PDO::FETCH_ASSOC);
 
-                $my_name = $returned_category[0]['name'];
-                $my_id = $returned_category[0]['id'];
-                $new_category = new Category($my_name, $my_id);
-                array_push($categories, $new_category);
+                if ($returned_category != []) {
+                    $my_name = $returned_category[0]['name'];
+                    $my_id = $returned_category[0]['id'];
+                    $new_category = new Category($my_name, $my_id);
+                    array_push($categories, $new_category);
+                }
             }
             return $categories;
         }

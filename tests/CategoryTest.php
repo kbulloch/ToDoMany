@@ -244,7 +244,7 @@
 
             //Act
             $test_category->addTask($test_task);
-            $test_category->delete();
+            // $test_category->delete();
 
             //Assert
             $this->assertEquals([], $test_task->getCategories());
