@@ -8,15 +8,15 @@
     // require_once "src/Task.php";
     require_once "src/Category.php";
 
-    // $DB = new PDO('pgsql:host=localhost;dbname=to_do_test');
+    $DB = new PDO('pgsql:host=localhost;dbname=to_do_test');
 
     class CategoryTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown()
-        // {
-        //     Category::deleteAll();
-        //     Task::deleteAll();
-        // }
+        protected function tearDown()
+        {
+            Category::deleteAll();
+            Task::deleteAll();
+        }
 
         function testGetName()
         {
@@ -73,6 +73,35 @@
             //Assert
             $result = $test_category->getId();
             $this->assertEquals(777, $result);
+        }
+
+        function testSave()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 14;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            //Act
+            $result = Category::getAll();
+
+            //Assert
+            $this->assertEquals($test_category, $result[0]);
+        }
+
+        function testSaveSetsId()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 14;
+            $test_category = new Category($name, $id);
+
+            //Act
+            $test_category->save();
+
+            //Assert
+            $this->assertEquals(true, is_numeric($test_category->getId()));
         }
     }
 

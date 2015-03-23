@@ -8,15 +8,15 @@
     require_once "src/Task.php";
     // require_once "src/Category.php";
 
-    // $DB = new PDO('pgsql:host=localhost;dbname=to_do_test');
+    $DB = new PDO('pgsql:host=localhost;dbname=to_do_test');
 
     class TaskTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown()
-        // {
-        //     Category::deleteAll();
-        //     Task::deleteAll();
-        // }
+        protected function tearDown()
+        {
+            // Category::deleteAll();
+            Task::deleteAll();
+        }
 
         function testGetDescription()
         {
@@ -50,7 +50,7 @@
             //Arrange
             $description = "Make a character";
             $id = 9000;
-            $test_task = new Task ($description);
+            $test_task = new Task($description);
 
             //Act
             $test_task->setDescription("Level up!");
@@ -68,13 +68,29 @@
             $test_task = new Task($description, $id);
 
             //Act
-            $test_task->setId(1);
+            $test_task->setId(782);
 
             //Assert
             $result = $test_task->getId();
-            $this->assertEquals(1, $result);
+            $this->assertEquals(782, $result);
 
         }
+
+        function testSave()
+        {
+            //Arrange
+            $description = "Fight";
+            $id = 11;
+            $test_task = new Task($description, $id);
+
+            //Act
+            $test_task->save();
+
+            //Assert
+            $result = Task::getAll();
+            $this->assertEquals($test_task, $result[0]);
+        }
+
     }
 
 
