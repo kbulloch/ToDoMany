@@ -31,7 +31,7 @@
             $this->assertEquals($name, $result);
         }
 
-        function testGetid()
+        function testGetId()
         {
             //Arrange
             $name = "Dungeons and Dragons";
@@ -43,6 +43,22 @@
 
             //Assert
             $this->assertEquals($id, $result);
+        }
+
+        function testSetName()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 123;
+            $test_category = new Category($name, $id);
+
+            //Act
+            $test_category->setName("Mutants and Masterminds");
+
+            //Assert
+            $result = $test_category->getName();
+            $this->assertEquals("Mutants and Masterminds", $result);
+
         }
     }
 

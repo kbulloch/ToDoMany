@@ -21,6 +21,10 @@
             return $this->id;
         }
 
+        function setName($name)
+        {
+            $this->name = (string) $name;
+        }
 
     }
 
