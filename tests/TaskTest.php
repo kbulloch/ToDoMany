@@ -31,34 +31,50 @@
             $this->assertEquals($description, $result);
         }
 
-        // function testGetId()
-        // {
-        //     //Arrange
-        //
-        //     //Act
-        //
-        //     //Assert
-        // }
-        //
-        // function testSetName()
-        // {
-        //     //Arrange
-        //
-        //     //Act
-        //
-        //     //Assert
-        // }
-        //
-        // function testSetId()
-        // {
-        //     //Arrange
-        //
-        //
-        //     //Act
-        //
-        //     //Assert
-        //
-        // }
+        function testGetId()
+        {
+            //Arrange
+            $description = "magic_quotes_runtime";
+            $id = 66;
+            $test_task = new Task($description, $id);
+
+            //Act
+            $result = $test_task->getId();
+
+            //Assert
+            $this->assertEquals($id, $result);
+        }
+
+        function testSetDescription()
+        {
+            //Arrange
+            $description = "Make a character";
+            $id = 9000;
+            $test_task = new Task ($description);
+
+            //Act
+            $test_task->setDescription("Level up!");
+
+            //Assert
+            $result = $test_task->getDescription();
+            $this->assertEquals("Level up!", $result);
+        }
+
+        function testSetId()
+        {
+            //Arrange
+            $description = "Beat the kobolds";
+            $id = 23;
+            $test_task = new Task($description, $id);
+
+            //Act
+            $test_task->setId(1);
+
+            //Assert
+            $result = $test_task->getId();
+            $this->assertEquals(1, $result);
+
+        }
     }
 
 

@@ -21,7 +21,7 @@
             return $this->id;
         }
 
-        function setName($new_description)
+        function setDescription($new_description)
         {
             $this->description = (string) $new_description;
         }
