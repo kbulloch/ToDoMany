@@ -43,10 +43,16 @@
         return $app['twig']->render('categories.twig', array('categories' => Category::getAll()));
     });
 
+    //(from) home page
+    //(will) list all tasks and allow adding a new task
+    //(to) post/tasks
     $app->get("/tasks", function() use ($app) {
         return $app['twig']->render('allfreakingtasks.twig', array('tasks' => Task::getAll()));
     });
 
+    //(from) get/tasks
+    //(will) add a new task and list all tasks
+    //(to) itself
     $app->post("tasks", function() use ($app) {
         $description = $_POST['description'];
         $new_task = new Task($description);
