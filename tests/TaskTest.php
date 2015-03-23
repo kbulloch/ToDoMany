@@ -58,8 +58,42 @@
             //Assert
             $result = $test_category->getName();
             $this->assertEquals("Mutants and Masterminds", $result);
+        }
 
+        function testSetId()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 111;
+            $test_category = new Category($name, $id);
+
+            //Act
+            $test_category->setId(777);
+
+            //Assert
+            $result = $test_category->getId();
+            $this->assertEquals(777, $result);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>

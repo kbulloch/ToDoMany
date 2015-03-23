@@ -21,9 +21,14 @@
             return $this->id;
         }
 
-        function setName($name)
+        function setName($new_name)
         {
-            $this->name = (string) $name;
+            $this->name = (string) $new_name;
+        }
+
+        function setId($new_id)
+        {
+            $this->id = $new_id;
         }
 
     }
