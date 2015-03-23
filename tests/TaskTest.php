@@ -6,7 +6,7 @@
     */
 
     require_once "src/Task.php";
-    // require_once "src/Category.php";
+    require_once "src/Category.php";
 
     $DB = new PDO('pgsql:host=localhost;dbname=to_do_test');
 
@@ -14,7 +14,7 @@
     {
         protected function tearDown()
         {
-            // Category::deleteAll();
+            Category::deleteAll();
             Task::deleteAll();
         }
 
@@ -268,7 +268,6 @@
             //Assert
             $this->assertEquals([], $test_category->getTasks());
         }
-
     }
 
 

@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Your Categories</title>
+    </head>
+    <body>
+        <p> What up Kyle?</p>
+
+        <form action="/categories" method="post">
+            <label for="name">Enter new category name</label>
+            <input type="text" name="name">
+            <button type="submit">Submit</button>
+        </form>
+
+
+        {% if categories is not empty %}
+        <p>
+            Here be your categerrrries:
+        </p>
+            {% for cat in categories %}
+                <p>
+                    {{ cat.getName }}
+                </p>
+            {% endfor %}
+        {% else %}
+            <p>
+                Y'all got no cats, dog!
+            </p>
+        {% endif %}
+    </body>
+</html>

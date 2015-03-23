@@ -5,7 +5,7 @@
     * @backupStaticAttributes disabled
     */
 
-    // require_once "src/Task.php";
+    require_once "src/Task.php";
     require_once "src/Category.php";
 
     $DB = new PDO('pgsql:host=localhost;dbname=to_do_test');
@@ -242,11 +242,11 @@
             $test_task = new Task($description, $id2);
             $test_task->save();
 
-            //Act
+            //Act - Adding  a task to the test category, then deleting the category
             $test_category->addTask($test_task);
-            // $test_category->delete();
+            $test_category->delete();
 
-            //Assert
+            //Assert Comparing an empty array with the category of test_task
             $this->assertEquals([], $test_task->getCategories());
         }
 
