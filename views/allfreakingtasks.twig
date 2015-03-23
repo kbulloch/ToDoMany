@@ -5,6 +5,11 @@
     <body>
         <p> What up Kyle?</p>
 
+        <form action="/tasks" method="post">
+            <label for="description">Enter new task description</label>
+            <input type="text" name="description">
+            <button type="submit">Submit</button>
+        </form>
 
         {% if tasks is not empty %}
         <p>

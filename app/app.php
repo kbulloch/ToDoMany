@@ -33,12 +33,25 @@
         return $app['twig']->render('categories.twig', array('categories' => Category::getAll())) ;
     });
 
-
+    //(From) get/categories
+    //(Will) add new category and save
+    //(To) sends user and categories to post/categories
     $app->post("/categories", function() use ($app) {
         $name = $_POST['name'];
         $new_category = new Category($name);
         $new_category->save();
-        return $app['twig']->render('categories.twig', array('categories' => Category::getAll(), 'new_category' => $new_category));
+        return $app['twig']->render('categories.twig', array('categories' => Category::getAll()));
+    });
+
+    $app->get("/tasks", function() use ($app) {
+        return $app['twig']->render('allfreakingtasks.twig', array('tasks' => Task::getAll()));
+    });
+
+    $app->post("tasks", function() use ($app) {
+        $description = $_POST['description'];
+        $new_task = new Task($description);
+        $new_task->save();
+        return $app['twig']->render('allfreakingtasks.twig', array('tasks' => Task::getAll()));
     });
 
 
