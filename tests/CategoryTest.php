@@ -103,6 +103,85 @@
             //Assert
             $this->assertEquals(true, is_numeric($test_category->getId()));
         }
+
+        function testGetAll()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 14;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $name2 = "Mermaids and Murders";
+            $id2 = 99;
+            $test_category2 = new Category($name2, $id2);
+            $test_category2->save();
+
+            //Act
+            $result = Category::getAll();
+
+            //Assert
+            $this->assertEquals([$test_category, $test_category2], $result);
+        }
+
+        function testDeleteAll()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 14;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $name2 = "Mermaids and Murders";
+            $id2 = 99;
+            $test_category2 = new Category($name2, $id2);
+            $test_category2->save();
+
+            //Act
+            Category::deleteAll();
+
+            //Assert
+            $result = Category::getAll();
+            $this->assertEquals([], $result);
+        }
+
+        function testFind()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 14;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $name2 = "Mermaids and Murders";
+            $id2 = 99;
+            $test_category2 = new Category($name2, $id2);
+            $test_category2->save();
+
+            //Act
+            $result = Category::find($test_category->getId());
+
+            //Assert
+            $this->assertEquals($test_category, $result);
+        }
+
+        function testUpdate()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 14;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $new_name = "Software Development";
+
+            //Act
+            $test_category->update($new_name);
+
+            //Assert
+            $result = $test_category->getName();
+            $this->assertEquals($new_name, $result);
+        }
     }
 
 
