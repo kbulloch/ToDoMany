@@ -55,8 +55,12 @@
     //(to) itself
     $app->post("tasks", function() use ($app) {
         $description = $_POST['description'];
+        $parent_category = $_POST['category']; //this variable name can be changed later
+        $new_category = new Category($parent_category);
+        $new_category->save();
         $new_task = new Task($description);
         $new_task->save();
+        $new_task->addCategory($new_category);
         return $app['twig']->render('allfreakingtasks.twig', array('tasks' => Task::getAll()));
     });
 

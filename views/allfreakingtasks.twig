@@ -8,6 +8,10 @@
         <form action="/tasks" method="post">
             <label for="description">Enter new task description</label>
             <input type="text" name="description">
+            <br>
+            <label for="category">Enter the category for this task</label>
+            <input type="text" name="category">
+
             <button type="submit">Submit</button>
         </form>
 
@@ -17,7 +21,7 @@
         </p>
             {% for tic in tasks %}
                 <p>
-                    {{ tic.getDescription }}
+                    {{ tic.getDescription }} {{ tic.getCategories }}
                 </p>
             {% endfor %}
         {% else %}
