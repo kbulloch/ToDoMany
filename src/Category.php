@@ -11,6 +11,11 @@
             $this->id = $new_id;
         }
 
+        function getName()
+        {
+            return $this->name;
+        }
+
 
     }
 
