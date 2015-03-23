@@ -182,6 +182,72 @@
             $this->assertEquals($new_description, $test_task->getDescription());
         }
 
+        function testDeleteTask()
+        {
+            //Arrange
+            $description = "Beat the kobolds";
+            $id = 23;
+            $test_task = new Task($description, $id);
+            $test_task->save();
+
+            $description2 = "Ice that orc";
+            $id2 = 2;
+            $test_task2 = new Task($description2, $id2);
+            $test_task2->save();
+
+            //Act
+            $test_task->delete();
+
+            //Assert
+            $this->assertEquals([$test_task2], Task::getAll());
+        }
+
+        function testAddCategory()
+        {
+            //Arrange
+            $name = "Orc stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "Skin a goat";
+            $id2 = 2;
+            $test_task = new Task($description, $id2);
+            $test_task->save();
+
+            //Act
+            $test_task->addCategory($test_category);
+
+            //Assert
+            $this->assertEquals($test_task->getCategories(), [$test_category]);
+        }
+
+        function testGetCategories()
+        {
+            //Arrange
+            $name = "Elf stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $name2 = "Volunteer stuff";
+            $id2 = 2;
+            $test_category2 = new Category($name2, $id2);
+            $test_category2->save();
+
+            $description = "Find the gnome";
+            $id3 = 3;
+            $test_task = new Task($description, $id3);
+            $test_task->save();
+
+            //Act
+            $test_task->addCategory($test_category);
+            $test_task->addCategory($test_category2);
+
+            //Assert
+            $this->assertEquals($test_task->getCategories(), [$test_category, $test_category2]);
+        }
+
     }
 
 

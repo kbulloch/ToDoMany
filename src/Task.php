@@ -74,6 +74,38 @@
             $GLOBALS['DB']->exec("UPDATE tasks SET description = '{$new_description}' WHERE id = {$this->getId()};");
             $this->setDescription($new_description);
         }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM tasks WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE task_id = {$this->getId()};");
+        }
+
+        function addCategory($category)
+        {
+            //add a cat_id where task_id = thisone
+            $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$category->getId()}, {$this->getId()});");
+        }
+
+        function getCategories()
+        {
+            //select * from cats where task_id = this one
+            $query = $GLOBALS['DB']->query("SELECT category_id FROM categories_tasks WHERE task_id = {$this->getId()};");
+            $category_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $categories = [];
+            foreach($category_ids as $id) {
+                $my_category_id = $id['category_id'];
+                $result = $GLOBALS['DB']->query("SELECT * FROM categories WHERE id = {$my_category_id};");
+                $returned_category = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $my_name = $returned_category[0]['name'];
+                $my_id = $returned_category[0]['id'];
+                $new_category = new Category($my_name, $my_id);
+                array_push($categories, $new_category);
+            }
+            return $categories;
+        }
     }
 
 
