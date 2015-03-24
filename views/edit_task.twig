@@ -7,19 +7,21 @@
         <p>
             Task: {{my_task.getDescription}}
         </p>
+        {% if categories is not empty %}
             Categories:
             <ul>
                 {% for category in categories %}
-                    <li>{{ category.getName }}</li>
+                    <li>{{ category.getName }}<a href="/">delete</a></li>
                 {% endfor %}
             </ul>
+        {% endif %}
 
         rename
         <form action="/tasks/{{ my_task.getId }}/edit" method="post">
             <input type="hidden" name="_method" value="patch">
             <label for="new_description">Edit description</label>
             <input type="text" name="new_description">
-            <button type="submit">Submit</button>
+            <button type="submit">Edit</button>
         </form>
 
         new cat
@@ -27,10 +29,15 @@
             <input type="hidden" name="_method" value="patch">
             <label for="new_cat">Add a category</label>
             <input type="text" name="new_cat">
-            <button type="submit">Submit</button>
+            <button type="submit">Add</button>
         </form>
 
-        remove cat
+        remove task
+        <form action="/tasks/{{ my_task.getId }}/delete" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <button submit="submit">Delete</button>
+        </form>
+
         <h3><a href="/">Home</a></h3>
 
     </body>

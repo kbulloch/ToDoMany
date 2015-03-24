@@ -52,10 +52,22 @@
 
     $app->get("/categories/{id}/edit", function($id) use ($app){
         $my_category = Category::find($id);
-        return $app['twig']->render('edit_categories.twig', array('my_category' => $my_category, 'tasks' => $my_category->getTasks()));
+        return $app['twig']->render('edit_category.twig', array('my_category' => $my_category, 'tasks' => $my_category->getTasks()));
     });
 
+    $app->patch('/categories/{id}/edit', function($id) use ($app){
+        $new_cat = $_POST['new_cat_name'];
+        $cat = Category::find($id);
+        $cat->update($new_cat);
 
+        return $app['twig']->render('edit_category.twig', array('my_category' => $cat, 'tasks' => $cat->getTasks()));
+    });
+
+    $app->delete("/categories/{id}/delete", function($id) use ($app) {
+        $category = Category::find($id);
+        $category->delete();
+        return $app['twig']->render('categories.twig', array('categories' => Category::getAll()));
+    });
 
     //(from) home page
     //(will) list all tasks and allow adding a new task
@@ -93,6 +105,12 @@
         $new_cat_name = $_POST['new_cat'];
 
         return $app['twig']->render('edit_task.twig', array('my_task' => Task::find($id), 'categories' => $task->getCategories()));
+    });
+
+    $app->delete("/tasks/{id}/delete", function($id) use ($app) {
+        $task = Task::find($id);
+        $task->delete();
+        return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
     });
 
 

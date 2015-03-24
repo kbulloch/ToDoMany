@@ -24,6 +24,11 @@
             {% endfor %}
         {% endif %}
 
+        <form action="/categories/{{ my_category.getId }}/delete" method="post">
+            <input type="hidden" name="_method" value="delete">
+
+            <button type="submit">Delete</button>
+        </form>
 
 
         <h3><a href="/">Home</a></h3>
