@@ -11,23 +11,38 @@
             <br>
             <label for="category">Enter the category for this task</label>
             <input type="text" name="category">
+            <!-- USE DROPDOWN MENU -->
 
             <button type="submit">Submit</button>
         </form>
 
         {% if tasks is not empty %}
         <p>
-            Here be your tic taks:
+            Here be your tasks:
         </p>
-            {% for tic in tasks %}
+            {% for task in tasks %}
                 <p>
-                    {{ tic.getDescription }} {{ tic.getCategories }}
+                    {{ task.getDescription }}
+                    {% for category in task.getCategories %}
+                        <ul>
+                            <li>{{ category.getName }}</li>
+                        </ul>
+                    {% endfor %}
                 </p>
             {% endfor %}
+
+            <form action="/delete_all_tasks" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type="submit">Delete all tasks</button>
+            </form>
+
         {% else %}
             <p>
-                No tic taks? Bad breath, dog!
+                No task taks? Bad breath, dog!
             </p>
         {% endif %}
+
+
+
     </body>
 </html>

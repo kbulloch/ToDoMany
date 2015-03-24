@@ -55,11 +55,22 @@
     //(to) itself
     $app->post("tasks", function() use ($app) {
         $description = $_POST['description'];
-        $parent_category = $_POST['category']; //this variable name can be changed later
-        $new_category = new Category($parent_category);
-        $new_category->save();
         $new_task = new Task($description);
         $new_task->save();
+        //if the category already exists, just assign it with task->addCat
+        //Cat::getAll()
+        //if cat->getName() == $new_cat->getName(), then do not save, just assign the object
+        //else, run the save new object line below
+
+        $category_name = $_POST['category']; //this variable name can be changed later
+        $new_category = new Category($category_name);
+        $all_categories = Category::getAll();
+
+    //    foreach
+
+        // if($new_category->getName() ==
+        $new_category->save();
+
         $new_task->addCategory($new_category);
         return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
     });
