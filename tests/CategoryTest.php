@@ -250,6 +250,47 @@
             $this->assertEquals([], $test_task->getCategories());
         }
 
+        function testFindByName()
+        {
+            //Arrange
+            $name = "Dungeons and Dragons";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $name2 = "Fairies and Farts";
+            $id2 = 2;
+            $test_category2 = new Category($name2, $id2);
+            $test_category2->save();
+
+            $search_input = "Dungeons and Dragons";
+
+            //Act
+            $result = Category::findByName($search_input);//returns an object
+
+            //Assert
+
+            $this->assertEquals("Dungeons and Dragons", $result->getName());
+        }
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>

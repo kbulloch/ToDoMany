@@ -57,24 +57,30 @@
         $description = $_POST['description'];
         $new_task = new Task($description);
         $new_task->save();
-        //if the category already exists, just assign it with task->addCat
-        //Cat::getAll()
-        //if cat->getName() == $new_cat->getName(), then do not save, just assign the object
-        //else, run the save new object line below
 
-        $category_name = $_POST['category']; //this variable name can be changed later
-        $new_category = new Category($category_name);
-        $all_categories = Category::getAll();
+        $new_category_name = $_POST['category']; //this variable name can be changed later
+        $new_category = new Category($new_category_name);
 
-    //    foreach
+        $existing_category = Category::findByName($new_category->getName());
+        //will return null if no mathcing category in database
+        //will return category object if it exists already
 
-        // if($new_category->getName() ==
-        $new_category->save();
+        //if the category does not already exist, save the new category to the database
+        if($existing_category == null){
+            $new_category->save();
+            $new_task->addCategory($new_category);
+        }
+        else {
+            $new_task->addCategory($existing_category);
+        }
 
-        $new_task->addCategory($new_category);
         return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
     });
 
+    $app->delete("/delete_all_tasks", function() use ($app) {
+        Task::deleteAll();
+        return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
+    });
 
 
 

@@ -104,5 +104,18 @@
         {
             $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$this->getId()}, {$task->getId()});");
         }
+
+        static function findByName($search_name)
+        {
+            $found_category = null;
+            $all_categories = Category::getAll();
+            foreach($all_categories as $category){
+                $category_name = $category->getName();
+                if ($category_name == $search_name){
+                    $found_category = $category;
+                }
+            }
+            return $found_category;
+        }
     }
 ?>
