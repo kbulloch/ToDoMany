@@ -47,7 +47,7 @@
     //(will) list all tasks and allow adding a new task
     //(to) post/tasks
     $app->get("/tasks", function() use ($app) {
-        return $app['twig']->render('allfreakingtasks.twig', array('tasks' => Task::getAll()));
+        return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
     });
 
     //(from) get/tasks
@@ -61,7 +61,7 @@
         $new_task = new Task($description);
         $new_task->save();
         $new_task->addCategory($new_category);
-        return $app['twig']->render('allfreakingtasks.twig', array('tasks' => Task::getAll()));
+        return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
     });
 
 
