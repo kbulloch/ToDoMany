@@ -98,13 +98,16 @@
     });
 
     $app->patch("/tasks/{id}/edit", function($id) use ($app) { //
-        $new_description = $_POST['new_description'];
         $task = Task::find($id);
-        $task->update($new_description);
+
+        $new_description = $_POST['new_description'];
+        if($new_description != null){
+            $task->update($new_description);
+        }
 
         $new_cat_name = $_POST['new_cat'];
 
-        return $app['twig']->render('edit_task.twig', array('my_task' => Task::find($id), 'categories' => $task->getCategories()));
+        return $app['twig']->render('edit_task.twig', array('my_task' => $task, 'categories' => $task->getCategories()));
     });
 
     $app->delete("/tasks/{id}/delete", function($id) use ($app) {

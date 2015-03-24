@@ -11,7 +11,7 @@
             Categories:
             <ul>
                 {% for category in categories %}
-                    <li>{{ category.getName }}<a href="/">delete</a></li>
+                    <li>{{ category.getName }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
@@ -21,7 +21,7 @@
             <input type="hidden" name="_method" value="patch">
             <label for="new_description">Edit description</label>
             <input type="text" name="new_description">
-            <button type="submit">Edit</button>
+            <button name="new_description" type="submit">Edit</button>
         </form>
 
         new cat
