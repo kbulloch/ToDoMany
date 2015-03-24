@@ -5,18 +5,27 @@
     <body>
         <h1>Edit Your Categories</h1>
         <p>
-            Categories: {{ my_category.getName }}
-
-            {% if tasks is not empty %}
-            Task in this category:
-                {% for task in tasks %}
-                <ul>
-                    <li>{{ task.getDescription }}</li>
-                </ul>
-                {% endfor %}
-            {% endif %}
-
-            <h3><a href="/">Home</a></h3>
+            Category: {{ my_category.getName }}
         </p>
+
+        <form action="/categories/{{ my_category.getId }}/edit" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <label for="new_cat_name">Edit category name</label>
+            <input type="text" name="new_cat_name">
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if tasks is not empty %}
+        Tasks in this category:
+            {% for task in tasks %}
+            <ul>
+                <li><a href="/tasks/{{ task.getId }}/edit">{{ task.getDescription }}</a></li>
+            </ul>
+            {% endfor %}
+        {% endif %}
+
+
+
+        <h3><a href="/">Home</a></h3>
     </body>
 </html>

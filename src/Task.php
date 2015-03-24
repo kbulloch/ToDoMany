@@ -81,10 +81,19 @@
             $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE task_id = {$this->getId()};");
         }
 
-        function addCategory($category)
+        function addCategory($new_category)
         {
-            //add a cat_id where task_id = thisone
-            $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$category->getId()}, {$this->getId()});");
+            //checks to make sure category does not already exist
+            //to avoid creating duplicate categories in database
+            $existing_category = Category::findByName($new_category->getName());
+
+            if($existing_category == null){
+                $new_category->save();
+                $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$new_category->getId()}, {$this->getId()});");
+            }
+            else {
+                $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id) VALUES ({$existing_category->getId()}, {$this->getId()});");
+            }
         }
 
         function getCategories()

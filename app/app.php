@@ -75,18 +75,7 @@
         $new_category_name = $_POST['category']; //this variable name can be changed later
         $new_category = new Category($new_category_name);
 
-        $existing_category = Category::findByName($new_category->getName());
-        //will return null if no mathcing category in database
-        //will return category object if it exists already
-
-        //if the category does not already exist, save the new category to the database
-        if($existing_category == null){
-            $new_category->save();
-            $new_task->addCategory($new_category);
-        }
-        else {
-            $new_task->addCategory($existing_category);
-        }
+        $new_task->addCategory($new_category);
 
         return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
     });
@@ -100,6 +89,9 @@
         $new_description = $_POST['new_description'];
         $task = Task::find($id);
         $task->update($new_description);
+
+        $new_cat_name = $_POST['new_cat'];
+
         return $app['twig']->render('edit_task.twig', array('my_task' => Task::find($id), 'categories' => $task->getCategories()));
     });
 
