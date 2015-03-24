@@ -3,22 +3,26 @@
         <title>Your Categories</title>
     </head>
     <body>
-        <p> What up Kyle?</p>
+        <h2> What up Kyle?</h2>
 
         <form action="/categories" method="post">
             <label for="name">Enter new category name</label>
             <input type="text" name="name">
+            <br>
+            <label for="task">Enter the task for this category</label>
+            <input type="text" name="task" >
+
             <button type="submit">Submit</button>
         </form>
 
 
         {% if categories is not empty %}
         <p>
-            Here be your categarrrries:
+            Here are your categories:
         </p>
             {% for cat in categories %}
                 <p>
-                    {{ cat.getName }}
+                    <a href="/categories/{{cat.getId}}/edit">{{ cat.getName }}</a>
                 </p>
             {% endfor %}
             <form action="/delete_all_categories" method="post">

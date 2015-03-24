@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Edit Your Task</title>
+    </head>
+    <body>
+        <h1>Edit Your Task</h1>
+        <p>
+            Task: {{my_task.getDescription}}
+            <ul>
+            Categories:
+                {% for category in categories %}
+
+                    <li>{{ category.getName }}</li>
+
+                {% endfor %}
+            </ul>
+        </p>
+        <form action="/tasks/{{ my_task.getId }}/edit" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <label for="new_description">Edit description</label>
+            <input type="text" name="new_description">
+            <button type="submit">Submit</button>
+
+        </form>
+
+        rename
+        new cat
+        remove cat
+        <h3><a href="/">Home</a></h3>
+
+    </body>
+</html>

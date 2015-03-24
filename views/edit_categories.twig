@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Edit Categories</title>
+    </head>
+    <body>
+        <h1>Edit Your Categories</h1>
+        <p>
+            Categories: {{ my_category.getName }}
+
+            {% if tasks is not empty %}
+            Task in this category:
+                {% for task in tasks %}
+                <ul>
+                    <li>{{ task.getDescription }}</li>
+                </ul>
+                {% endfor %}
+            {% endif %}
+
+            <h3><a href="/">Home</a></h3>
+        </p>
+    </body>
+</html>

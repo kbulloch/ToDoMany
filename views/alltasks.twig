@@ -3,7 +3,7 @@
         <title>Your Task</title>
     </head>
     <body>
-        <p> What up Kyle?</p>
+        <h2> What up Kyle?</h2>
 
         <form action="/tasks" method="post">
             <label for="description">Enter new task description</label>
@@ -22,7 +22,7 @@
         </p>
             {% for task in tasks %}
                 <p>
-                    {{ task.getDescription }}
+                    <a href="/tasks/{{task.getId}}/edit">{{ task.getDescription }}</a>
                     {% for category in task.getCategories %}
                         <ul>
                             <li>{{ category.getName }}</li>

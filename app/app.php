@@ -40,8 +40,22 @@
         $name = $_POST['name'];
         $new_category = new Category($name);
         $new_category->save();
+
+        $description = $_POST['task'];
+        $new_task = new Task($description);
+        $new_task->save();
+
+        $new_category->addTask($new_task);
+
         return $app['twig']->render('categories.twig', array('categories' => Category::getAll()));
     });
+
+    $app->get("/categories/{id}/edit", function($id) use ($app){
+        $my_category = Category::find($id);
+        return $app['twig']->render('edit_categories.twig', array('my_category' => $my_category, 'tasks' => $my_category->getTasks()));
+    });
+
+
 
     //(from) home page
     //(will) list all tasks and allow adding a new task
@@ -53,7 +67,7 @@
     //(from) get/tasks
     //(will) add a new task and list all tasks
     //(to) itself
-    $app->post("tasks", function() use ($app) {
+    $app->post("/tasks", function() use ($app) {
         $description = $_POST['description'];
         $new_task = new Task($description);
         $new_task->save();
@@ -77,6 +91,19 @@
         return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
     });
 
+    $app->get("/tasks/{id}/edit", function($id) use ($app) {
+        $my_task = Task::find($id); //send to main task page
+        return $app['twig']->render('edit_task.twig', array('my_task' => $my_task, 'categories' => $my_task->getCategories()));
+    });
+
+    $app->patch("/tasks/{id}/edit", function($id) use ($app) { //
+        $new_description = $_POST['new_description'];
+        $task = Task::find($id);
+        $task->update($new_description);
+        return $app['twig']->render('edit_task.twig', array('my_task' => Task::find($id), 'categories' => $task->getCategories()));
+    });
+
+
     $app->delete("/delete_all_tasks", function() use ($app) {
         Task::deleteAll();
         return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
@@ -86,7 +113,6 @@
         Category::deleteAll();
         return $app['twig']->render('categories.twig', array('categories' => Category::getAll()));
     });
-
 
 
 
