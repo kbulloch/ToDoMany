@@ -21,10 +21,15 @@
                     {{ cat.getName }}
                 </p>
             {% endfor %}
+            <form action="/delete_all_categories" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit">Delete All Categories</button>
+            </form>
         {% else %}
             <p>
                 Y'all got no cats, dog!
             </p>
         {% endif %}
+        <h3><a href="/">Home</a></h3>
     </body>
 </html>

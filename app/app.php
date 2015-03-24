@@ -82,7 +82,10 @@
         return $app['twig']->render('alltasks.twig', array('tasks' => Task::getAll()));
     });
 
-
+    $app->delete("/delete_all_categories", function() use ($app) {
+        Category::deleteAll();
+        return $app['twig']->render('categories.twig', array('categories' => Category::getAll()));
+    });
 
 
 
