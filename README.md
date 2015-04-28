@@ -19,13 +19,13 @@ git clone https://github.com/kbulloch/ToDoMany.git
 cd ToDoMany/web
 
 php -S localhost:8000
-
+```
 (then in a new window)
-
+```
 postgres
-
+```
 (then in a new tab)
-
+```
 psql
 
 CREATE DATABASE to_do;
